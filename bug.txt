@@ -1,0 +1,7 @@
+- không thêm proxy và biến môi trường được?
+- Load dữ liệu undefined không rõ nguyên nhân
+
+Nâng cao
+- thêm nhiều hình ảnh trước khi đăng bài
+- thêm chức năng kết Bạn
+- thêm chức năng nhắn tin realtime
