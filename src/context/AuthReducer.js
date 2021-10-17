@@ -1,3 +1,5 @@
+import storage from "../util/storage"
+
 const AuthReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN_START":
@@ -7,6 +9,7 @@ const AuthReducer = (state, action) => {
                 error: false,
             }
         case "LOGIN_SUCCESS":
+            storage.set(action.payload)
             return {
                 user: action.payload,
                 isFetching: false,
@@ -17,6 +20,14 @@ const AuthReducer = (state, action) => {
                 user: null,
                 isFetching: false,
                 error: action.payload,
+            }
+        case "LOGOUT":
+            storage.set(null)
+            console.log("logout");
+            return {
+                user: null,
+                isFetching: false,
+                error: false,
             }
         case "FOLLOW":
             return {

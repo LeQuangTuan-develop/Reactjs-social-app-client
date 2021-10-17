@@ -3,10 +3,16 @@ import { Search, Person, Chat, Notifications, ArrowDropDown } from '@material-ui
 import {Link} from 'react-router-dom'
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import {Logout} from '../../context/AuthAction'
 
 function Topbar() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
-    const {user} = useContext(AuthContext)
+    const {user, dispatch} = useContext(AuthContext)
+
+    const handleLogout = () => {
+        console.log("click log out");
+        dispatch(Logout());
+    }
 
     return (
         <div className="topbarContainer">
@@ -32,8 +38,10 @@ function Topbar() {
                         <span className="topbarIconBadge">1</span>
                     </div>
                     <div className="topbarIconItem">
-                        <Chat/>
-                        <span className="topbarIconBadge">1</span>
+                        <Link to={"/messenger"}>
+                            <Chat className="topbarIcon"/>
+                            <span className="topbarIconBadge">1</span>
+                        </Link>
                     </div>
                     <div className="topbarIconItem">
                         <Notifications/>
@@ -44,8 +52,15 @@ function Topbar() {
                     <Link to={"/profile/" + user.username}>
                         <img src={user.profilePicture ? PF + user.profilePicture : PF + "person/avatar-default.png"} alt="" className="topbarImg" />
                     </Link>
-                    <span className="topbarAccountName">{user.username}</span>
-                    <ArrowDropDown/>
+                    <div className="topbarAccountMore">
+                        <span className="topbarAccountName">{user.username}</span>
+                        <ArrowDropDown/>
+                        <ul className="topbarAccountOpenList">
+                            <li className="topbarListItem">Thông tin</li>
+                            <li className="topbarListItem">Cài đặt</li>
+                            <li className="topbarListItem" onClick={handleLogout}>Đăng xuất</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
